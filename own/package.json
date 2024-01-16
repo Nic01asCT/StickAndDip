@@ -1,15 +1,17 @@
 {
-  "name": "webrtc-demo",
+  "name": "stickndip",
+  "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "preview": "vite preview"
   },
   "devDependencies": {
     "vite": "^5.0.8"
   },
   "dependencies": {
-    "firebase": "^8.2.10"
+    "firebase": "^10.7.1"
   }
 }
