@@ -10,14 +10,14 @@ var interval
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 500,
-        height: 150,
+        height: 500,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
         }
     })
 
-    win.removeMenu()
+    //win.removeMenu()
     win.loadFile('index.html')
 
     socket.on('mouse-move', (data) => {
