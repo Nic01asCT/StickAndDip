@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const { v4: uuidv4 } = require('uuid')
 const screenshot = require('screenshot-desktop')
 
-const robot = require('robotjs')
+//const robot = require('robotjs')
 
 const socket = require('socket.io-client')('http://192.168.1.227:5000')
 var interval
@@ -22,16 +22,16 @@ const createWindow = () => {
 
     socket.on('mouse-move', (data) => {
         const { x, y } = JSON.parse(data)
-        robot.mouseMove(x, y)
+        //robot.mouseMove(x, y)
     })
 
     socket.on('mouse-click', (data) => {
-        robot.mouseClick()
+        //robot.mouseClick()
     })
 
     socket.on('type', (data) => {
         const { key } = JSON.parse(data)
-        robot.keyTap(key)
+        //robot.keyTap(key)
     })
 }
 
