@@ -1,0 +1,43 @@
+<html lang='en'>
+<head>
+    <title>Stick'n'dip</title>
+</head>
+<body>
+    <img style='width: 90%; height: 90%; margin-top: 2%; margin-left: 5%'/>
+
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js' crossorigin='anonymous'></script>
+
+    <script>
+        window.onload = function() {
+            var room = prompt('Please enter room ID : ')
+            if (room.trim().length == 0) return document.write('<h1> Room ID is mandatory to join </h1>')
+
+            socket = io.connect('http://192.168.1.227:5000')
+
+            socket.emit('join-message', room)
+            socket.on('screen-data', function(message) {
+                $('img').attr('src', 'data:image/png;base64,' + message)
+            })
+
+            $('img').mousemove((e) => {
+                const posX = $(this).offset().left
+                const posY = $(this).offset().top
+
+                const x = e.pageX - posX
+                const y = e.pageY - posY
+
+                socket.emit('mouse-move', JSON.stringify({ x, y, room }))
+            })
+
+            $('img').click((e) => {
+                socket.emit('mouse-click', JSON.stringify({ room }))
+            })
+
+            $(window).bind('keyup', (e) => {
+                socket.emit('type', JSON.stringify({ key: key.e , room }))
+            })
+        }
+    </script>
+</body>
+</html>
