@@ -4,7 +4,7 @@ const screenshot = require('screenshot-desktop')
 
 //const robot = require('robotjs')
 
-const socket = require('socket.io-client')('http://192.168.1.227:5000')
+const socket = require('socket.io-client')('http://10.30.12.36:5000')
 var interval
 
 const createWindow = () => {

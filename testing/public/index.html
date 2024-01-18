@@ -1,0 +1,49 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket.IO P2P Example</title>
+</head>
+<body>
+  <ul id="messages"></ul>
+  <form id="form" action="">
+    <input id="messageInput" autocomplete="off" /><button>Send</button>
+  </form>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    // Prompt user for a target user ID to establish P2P connection
+    const targetUserId = prompt('Enter target user ID:');
+
+    // Emit a private message to the target user
+    document.getElementById('form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const messageInput = document.getElementById('messageInput');
+      const message = messageInput.value;
+      socket.emit('private message', { target: targetUserId, message });
+      messageInput.value = '';
+    });
+
+    // Handle private messages from other users
+    socket.on('private message', (data) => {
+      const messagesList = document.getElementById('messages');
+      const li = document.createElement('li');
+      li.textContent = `${data.sender}: ${data.message}`;
+      messagesList.appendChild(li);
+    });
+
+    // Handle user connection
+    socket.on('user connected', (userId) => {
+      console.log(`User ${userId} connected`);
+    });
+
+    // Handle user disconnection
+    socket.on('user disconnected', (userId) => {
+      console.log(`User ${userId} disconnected`);
+    });
+  </script>
+</body>
+</html>
